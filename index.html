@@ -1,197 +1,431 @@
-```html
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTMR BAC3 | ENS Burundi</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f5fa;
-            color: #172033;
-            line-height: 1.6;
-        }
-
-        header {
-            background: #082b59;
-            color: white;
-            padding: 24px 16px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        nav {
-            background: #064e89;
-            padding: 12px;
-            text-align: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-            margin: 5px 10px;
-            font-weight: bold;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #082b59, #0879bd);
-            color: white;
-            text-align: center;
-            padding: 65px 20px;
-        }
-
-        .hero h2 {
-            font-size: 30px;
-            margin-bottom: 15px;
-        }
-
-        .hero p {
-            margin-bottom: 22px;
-        }
-
-        .button {
-            display: inline-block;
-            background: #ffc928;
-            color: #082b59;
-            padding: 12px 22px;
-            border-radius: 7px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 5px;
-        }
-
-        main {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 16px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #082b59;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
-        }
-
-        .card {
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 14px #00000012;
-        }
-
-        .card h3 {
-            color: #075b9b;
-            margin-bottom: 10px;
-        }
-
-        .info {
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
-            margin-top: 28px;
-        }
-
-        footer {
-            margin-top: 40px;
-            padding: 22px;
-            background: #082b59;
-            color: white;
-            text-align: center;
-        }
-
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 25px;
-            }
-
-            .hero h2 {
-                font-size: 24px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b63">
+<title>GTMR BAC3 | ENS Burundi</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--navy:#102b63;--blue:#2864e8;--cyan:#16b8c9;--bg:#f3f6fc;--white:#fff;--text:#17233b;--muted:#687790;--border:#e1e8f3}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+button,input,textarea{font:inherit}
+button,a{touch-action:manipulation}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:10;background:white;border-bottom:1px solid var(--border);padding:13px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;color:white;font-weight:bold;font-size:17px}
+.brand h1{font-size:19px;color:var(--navy);margin:0}
+.brand p{font-size:11px;color:var(--muted);margin:0}
+nav{display:flex;gap:5px;flex-wrap:wrap}
+nav a{padding:8px 10px;border-radius:8px;font-size:13px;font-weight:bold;color:#53617a}
+nav a:hover{background:#edf3ff;color:var(--blue)}
+button,.btn{border:0;border-radius:9px;padding:11px 15px;background:var(--blue);color:white;font-weight:bold;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+button:hover,.btn:hover{filter:brightness(.93)}
+button:disabled{opacity:.6;cursor:wait}
+.btn-light{background:#eaf1ff;color:var(--navy)}
+.btn-dark{background:var(--navy)}
+.btn-outline{background:white;color:var(--navy);border:1px solid var(--border)}
+.btn-small{padding:8px 11px;font-size:13px}
+main{max-width:1150px;padding:24px 18px;margin:auto}
+.hero{background:linear-gradient(120deg,#102b63,#1557b7 65%,#0c94ba);border-radius:23px;color:white;padding:58px 6%;position:relative;overflow:hidden}
+.hero h2{font-size:clamp(30px,4.5vw,48px);line-height:1.15;max-width:680px;margin:14px 0}
+.hero p{max-width:620px;color:#e0ebff}
+.tag{display:inline-block;border:1px solid #ffffff50;background:#ffffff17;border-radius:25px;padding:6px 12px;font-size:12px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero .btn-light{background:white}
+.hero .btn-outline{background:transparent;border-color:#ffffff80;color:white}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+.stat,.panel,.feature{background:white;border:1px solid var(--border);border-radius:15px;padding:20px}
+.stat strong{display:block;color:var(--navy)}
+.stat span,.muted{color:var(--muted);font-size:13px}
+.section{margin-top:32px}
+.heading{margin-bottom:17px}
+.heading h2,.panel h2{color:var(--navy);margin:0 0 5px;font-size:24px}
+.heading p{margin:0;color:var(--muted);font-size:14px}
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.feature{transition:transform .15s}
+.feature:hover{transform:translateY(-2px)}
+.feature .symbol{width:44px;height:44px;border-radius:12px;background:#eaf1ff;color:var(--blue);display:grid;place-items:center;font-size:23px;margin-bottom:12px}
+.feature h3{margin:0 0 7px;font-size:17px}
+.feature p{color:var(--muted);font-size:13px;min-height:42px}
+.panel{margin-top:25px;padding:25px}
+.panel-intro{font-size:14px;color:var(--muted);margin:5px 0 20px}
+.auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.auth-card{border:1px solid var(--border);background:#fbfcff;border-radius:13px;padding:20px}
+.auth-card h3{margin:0 0 15px;color:var(--navy)}
+.field{margin-bottom:13px}
+.field label{display:block;font-weight:bold;font-size:13px;margin-bottom:6px}
+.field input,.field textarea{width:100%;border:1px solid #d6e0ef;border-radius:8px;padding:12px;background:white;color:var(--text)}
+.field input:focus,.field textarea:focus{outline:2px solid #2864e833;border-color:var(--blue)}
+.auth-card>button[type=submit]{width:100%}
+.text-btn{border:0;background:none;color:var(--blue);padding:10px 0}
+.notice{border-radius:10px;padding:14px;background:#edf4ff;border-left:4px solid var(--blue);font-size:14px}
+.status{padding:13px 15px;border-radius:9px;margin:0 0 17px;overflow-wrap:anywhere;font-size:14px}
+.success{background:#dcfce7;color:#166534}
+.error{background:#fee2e2;color:#991b1b}
+.info{background:#eaf1ff;color:#174b9f}
+.hidden{display:none!important}
+.profile{background:#f6f9ff;padding:18px;border-radius:12px;margin-top:15px;overflow-wrap:anywhere}
+.profile p{margin:6px 0}
+.profile-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.module-area{margin-top:16px;padding:18px;border:1px solid var(--border);border-radius:12px;background:#fff}
+.module-area h3{margin-top:0;color:var(--navy)}
+footer{margin-top:38px;background:var(--navy);color:white;padding:28px 5%;text-align:center}
+footer p{margin:5px;font-size:13px;color:#d7e4ff}
+@media(max-width:800px){header{padding:12px 4%}nav{width:100%;overflow-x:auto;flex-wrap:nowrap}nav a{white-space:nowrap}.features{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){main{padding:15px 12px}.hero{padding:36px 22px;border-radius:17px}.stats,.features,.auth-grid{grid-template-columns:1fr}.panel{padding:17px}.feature p{min-height:0}.brand h1{font-size:17px}}
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>GTMR BAC3</h1>
-        <p>Génie des Télécommunications et Maintenance des Réseaux</p>
-        <p>ENS — Burundi</p>
-    </header>
+<header>
+  <a href="#accueil" class="brand">
+    <div class="logo">G3</div>
+    <div><h1>GTMR BAC3</h1><p>ENS · Burundi</p></div>
+  </a>
+  <nav>
+    <a href="#accueil">Accueil</a>
+    <a href="#espaces">Espaces</a>
+    <a href="#compte">Mon compte</a>
+    <a href="#annonces">Annonces</a>
+  </nav>
+  <button class="btn-small" id="navLogin" type="button">Connexion</button>
+</header>
 
-    <nav>
-        <a href="#accueil">Accueil</a>
-        <a href="#cours">Cours</a>
-        <a href="#informations">Informations</a>
-        <a href="#contact">Contact</a>
-    </nav>
+<main>
+  <section class="hero" id="accueil">
+    <span class="tag">PLATEFORME ÉTUDIANTE · ENS BURUNDI</span>
+    <h2>Bienvenue sur GTMR BAC3</h2>
+    <p>Apprendre, partager les documents et rester en contact avec les étudiants de notre promotion.</p>
+    <div class="actions">
+      <a href="#compte" class="btn btn-light">Créer mon compte →</a>
+      <a href="#espaces" class="btn btn-outline">Découvrir la plateforme</a>
+    </div>
+  </section>
 
-    <section class="hero" id="accueil">
-        <h2>Bienvenue sur la plateforme GTMR BAC3</h2>
-        <p>Un espace pour apprendre, partager les cours et rester en contact.</p>
-        <a class="button" href="#cours">Consulter les cours</a>
-        <a class="button" href="#informations">Voir les informations</a>
-    </section>
+  <section class="stats">
+    <div class="stat"><strong>GTMR BAC3</strong><span>Notre promotion</span></div>
+    <div class="stat"><strong>Cours et syllabus</strong><span>Ressources pédagogiques</span></div>
+    <div class="stat"><strong>Communication</strong><span>Informations de la classe</span></div>
+  </section>
 
-    <main>
-        <h2 class="section-title">Nos espaces</h2>
+  <section class="section" id="espaces">
+    <div class="heading">
+      <h2>Explorer nos espaces</h2>
+      <p>Sélectionnez un espace pour voir son état et les prochaines étapes.</p>
+    </div>
+    <div class="features">
+      <article class="feature">
+        <div class="symbol">▤</div>
+        <h3>Cours et syllabus</h3>
+        <p>Documents pédagogiques et fichiers PDF.</p>
+        <button class="btn-light btn-small openModule" data-module="Cours et syllabus" type="button">Ouvrir l'espace</button>
+      </article>
+      <article class="feature">
+        <div class="symbol">▧</div>
+        <h3>Galerie photos</h3>
+        <p>Photos de la promotion et des activités.</p>
+        <button class="btn-light btn-small openModule" data-module="Galerie photos" type="button">Ouvrir la galerie</button>
+      </article>
+      <article class="feature">
+        <div class="symbol">▣</div>
+        <h3>Messagerie</h3>
+        <p>Espace prévu pour les messages entre étudiants.</p>
+        <button class="btn-light btn-small openModule" data-module="Messagerie" type="button">Ouvrir la messagerie</button>
+      </article>
+      <article class="feature">
+        <div class="symbol">◉</div>
+        <h3>Espace étudiant</h3>
+        <p>Votre compte personnel et votre profil.</p>
+        <a href="#compte" class="btn btn-light btn-small">Mon compte</a>
+      </article>
+      <article class="feature">
+        <div class="symbol">▥</div>
+        <h3>Annonces</h3>
+        <p>Informations officielles et nouvelles de la promotion.</p>
+        <a href="#annonces" class="btn btn-light btn-small">Voir les annonces</a>
+      </article>
+      <article class="feature">
+        <div class="symbol">⚙</div>
+        <h3>Administration</h3>
+        <p>Fonctions réservées aux comptes administrateurs autorisés.</p>
+        <button class="btn-light btn-small openModule" data-module="Administration" type="button">État du module</button>
+      </article>
+    </div>
+  </section>
 
-        <div class="cards" id="cours">
-            <article class="card">
-                <h3>Cours et syllabus</h3>
-                <p>Un espace prévu pour retrouver les cours, les syllabus et les documents PDF.</p>
-            </article>
+  <section class="panel" id="compte">
+    <h2>Mon espace personnel</h2>
+    <p class="panel-intro">Inscrivez-vous ou connectez-vous avec votre adresse e-mail.</p>
+    <div id="status" class="status hidden" role="status" aria-live="polite"></div>
 
-            <article class="card">
-                <h3>Espace étudiants</h3>
-                <p>Un espace prévu pour l'inscription et la connexion des étudiants.</p>
-            </article>
-
-            <article class="card">
-                <h3>Galerie photos</h3>
-                <p>Un espace pour partager les photos de la classe et les activités.</p>
-            </article>
-
-            <article class="card">
-                <h3>Messagerie</h3>
-                <p>Un espace prévu pour échanger des messages entre étudiants.</p>
-            </article>
+    <div id="authForms" class="auth-grid">
+      <form id="signupForm" class="auth-card">
+        <h3>Créer un compte</h3>
+        <div class="field">
+          <label for="signupName">Nom complet</label>
+          <input id="signupName" type="text" maxlength="100" autocomplete="name" required>
         </div>
+        <div class="field">
+          <label for="signupEmail">Adresse e-mail</label>
+          <input id="signupEmail" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="signupPassword">Mot de passe (8 caractères minimum)</label>
+          <input id="signupPassword" type="password" minlength="8" autocomplete="new-password" required>
+        </div>
+        <button id="signupButton" type="submit">Créer mon compte</button>
+      </form>
 
-        <section class="info" id="informations">
-            <h2>Informations importantes</h2>
-            <p>Les annonces et les nouvelles seront publiées ici par l'administrateur.</p>
-        </section>
+      <form id="loginForm" class="auth-card">
+        <h3>Connexion</h3>
+        <div class="field">
+          <label for="loginEmail">Adresse e-mail</label>
+          <input id="loginEmail" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="loginPassword">Mot de passe</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" required>
+        </div>
+        <button id="loginButton" type="submit">Se connecter</button>
+        <button id="resetButton" class="text-btn" type="button">Mot de passe oublié ?</button>
+      </form>
+    </div>
 
-        <section class="info" id="contact">
-            <h2>Administration</h2>
-            <p>Administrateur du projet : Eliphase Niyomwungere.</p>
-            <p>Plateforme destinée aux étudiants GTMR BAC3.</p>
-        </section>
-    </main>
+    <div id="studentArea" class="profile hidden">
+      <h3>Bienvenue dans votre espace</h3>
+      <p id="welcome"></p>
+      <p id="emailInfo"></p>
+      <p id="roleInfo">Rôle : Étudiant</p>
+      <div class="profile-actions">
+        <button id="refreshButton" class="btn-small" type="button">Actualiser le profil</button>
+        <button id="logoutButton" class="btn-dark btn-small" type="button">Se déconnecter</button>
+      </div>
+    </div>
 
-    <footer>
-        <p>© 2026 GTMR BAC3 — ENS Burundi</p>
-        <p>Développé pour faciliter l'apprentissage et la communication.</p>
-    </footer>
+    <div id="moduleArea" class="module-area hidden">
+      <h3 id="moduleTitle"></h3>
+      <p id="moduleDescription"></p>
+      <p class="muted">Ce module n'est pas encore relié à ses données. La prochaine étape consiste à créer ses tables et ses règles de sécurité dans Supabase.</p>
+      <button id="closeModule" class="btn-light btn-small" type="button">Fermer</button>
+    </div>
+  </section>
 
+  <section class="panel" id="annonces">
+    <h2>Informations et annonces</h2>
+    <p class="panel-intro">Espace prévu pour les communications officielles de la promotion.</p>
+    <div class="notice">
+      Bienvenue sur la plateforme GTMR BAC3. Les annonces publiées par l'administration seront affichées ici après la mise en place du module de publication.
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>GTMR BAC3 · ENS Burundi</strong>
+  <p>Génie des Télécommunications et Maintenance des Réseaux</p>
+  <p>© 2026 GTMR BAC3</p>
+</footer>
+
+<script>
+"use strict";
+
+const SUPABASE_URL = "https://vwleaevmzkceyibcvhta.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_TdPpZL029uudWlMXOhnFvQ_kA4qF5DA";
+
+const statusBox = document.getElementById("status");
+const authForms = document.getElementById("authForms");
+const studentArea = document.getElementById("studentArea");
+const moduleArea = document.getElementById("moduleArea");
+
+function showStatus(message, type = "info") {
+  statusBox.textContent = message;
+  statusBox.className = "status " + type;
+}
+function clearStatus() {
+  statusBox.textContent = "";
+  statusBox.className = "status hidden";
+}
+function busy(button, value, label) {
+  if (value) {
+    button.dataset.label = button.textContent;
+    button.disabled = true;
+    button.textContent = label;
+  } else {
+    button.disabled = false;
+    button.textContent = button.dataset.label || button.textContent;
+    delete button.dataset.label;
+  }
+}
+function openModule(name) {
+  const descriptions = {
+    "Cours et syllabus": "Cet espace accueillera les cours, les syllabus et les fichiers PDF publiés par l'administration.",
+    "Galerie photos": "Cet espace accueillera les photos téléchargées dans le stockage sécurisé de la plateforme.",
+    "Messagerie": "Cet espace permettra aux étudiants connectés d'échanger des messages privés et de groupe.",
+    "Administration": "Le tableau de bord sera accessible uniquement au compte dont le rôle administrateur aura été accordé de façon sécurisée."
+  };
+  document.getElementById("moduleTitle").textContent = name;
+  document.getElementById("moduleDescription").textContent = descriptions[name] || "Module en préparation.";
+  moduleArea.classList.remove("hidden");
+  moduleArea.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+document.querySelectorAll(".openModule").forEach(button => {
+  button.addEventListener("click", () => openModule(button.dataset.module));
+});
+document.getElementById("closeModule").addEventListener("click", () => {
+  moduleArea.classList.add("hidden");
+});
+document.getElementById("navLogin").addEventListener("click", () => {
+  document.getElementById("compte").scrollIntoView({behavior:"smooth"});
+});
+
+if (!window.supabase) {
+  showStatus("La bibliothèque Supabase ne s'est pas chargée. Vérifiez la connexion Internet puis actualisez la page.", "error");
+} else {
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+  async function renderSession(session) {
+    if (!session) {
+      authForms.classList.remove("hidden");
+      studentArea.classList.add("hidden");
+      return;
+    }
+
+    authForms.classList.add("hidden");
+    studentArea.classList.remove("hidden");
+    document.getElementById("welcome").textContent =
+      "Bienvenue, " + (session.user.user_metadata?.full_name || "étudiant") + ".";
+    document.getElementById("emailInfo").textContent =
+      "Adresse e-mail : " + (session.user.email || "");
+    document.getElementById("roleInfo").textContent = "Rôle : Étudiant";
+
+    const {data: profile, error} = await client
+      .from("profiles")
+      .select("full_name, role")
+      .eq("id", session.user.id)
+      .maybeSingle();
+
+    if (error) {
+      console.error("Erreur du profil:", error.message);
+      return;
+    }
+    if (profile) {
+      document.getElementById("welcome").textContent =
+        "Bienvenue, " + (profile.full_name || "étudiant") + ".";
+      document.getElementById("roleInfo").textContent =
+        "Rôle : " + (profile.role === "admin" ? "Administrateur" : "Étudiant");
+    }
+  }
+
+  document.getElementById("signupForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    clearStatus();
+
+    const button = document.getElementById("signupButton");
+    const fullName = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+
+    if (!fullName) {
+      showStatus("Veuillez saisir votre nom complet.", "error");
+      return;
+    }
+
+    busy(button, true, "Création...");
+    try {
+      const {data, error} = await client.auth.signUp({
+        email,
+        password,
+        options: {data: {full_name: fullName}}
+      });
+      if (error) throw error;
+
+      if (data.session) {
+        await renderSession(data.session);
+        showStatus("Votre compte a été créé avec succès.", "success");
+      } else {
+        showStatus("Inscription envoyée. Vérifiez votre e-mail pour confirmer votre adresse avant de vous connecter.", "success");
+      }
+    } catch (error) {
+      showStatus("Inscription impossible : " + error.message, "error");
+    } finally {
+      busy(button, false);
+    }
+  });
+
+  document.getElementById("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    clearStatus();
+    const button = document.getElementById("loginButton");
+
+    busy(button, true, "Connexion...");
+    try {
+      const {data, error} = await client.auth.signInWithPassword({
+        email: document.getElementById("loginEmail").value.trim(),
+        password: document.getElementById("loginPassword").value
+      });
+      if (error) throw error;
+      await renderSession(data.session);
+      showStatus("Connexion réussie.", "success");
+    } catch (error) {
+      showStatus("Connexion impossible : " + error.message, "error");
+    } finally {
+      busy(button, false);
+    }
+  });
+
+  document.getElementById("resetButton").addEventListener("click", async () => {
+    clearStatus();
+    const email = document.getElementById("loginEmail").value.trim();
+    if (!email) {
+      showStatus("Saisissez votre adresse e-mail dans le formulaire de connexion.", "error");
+      return;
+    }
+    try {
+      const {error} = await client.auth.resetPasswordForEmail(email);
+      if (error) throw error;
+      showStatus("Si cette adresse peut recevoir une réinitialisation, un e-mail sera envoyé. La redirection doit être configurée dans Supabase.", "success");
+    } catch (error) {
+      showStatus("Demande impossible : " + error.message, "error");
+    }
+  });
+
+  document.getElementById("logoutButton").addEventListener("click", async () => {
+    const {error} = await client.auth.signOut();
+    if (error) {
+      showStatus("Déconnexion impossible : " + error.message, "error");
+      return;
+    }
+    await renderSession(null);
+    showStatus("Vous êtes déconnecté.", "success");
+  });
+
+  document.getElementById("refreshButton").addEventListener("click", async () => {
+    const {data, error} = await client.auth.getSession();
+    if (error) {
+      showStatus("Impossible de vérifier la session : " + error.message, "error");
+      return;
+    }
+    await renderSession(data.session);
+    if (data.session) showStatus("Profil actualisé.", "success");
+  });
+
+  client.auth.onAuthStateChange((_event, session) => {
+    setTimeout(() => renderSession(session), 0);
+  });
+
+  client.auth.getSession().then(({data, error}) => {
+    if (error) {
+      showStatus("Impossible de vérifier la session : " + error.message, "error");
+      return;
+    }
+    renderSession(data.session);
+  });
+}
+</script>
 </body>
 </html>
-```
