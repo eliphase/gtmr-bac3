@@ -1,0 +1,197 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTMR BAC3 | ENS Burundi</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5fa;
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #082b59;
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        nav {
+            background: #064e89;
+            padding: 12px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px 10px;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #082b59, #0879bd);
+            color: white;
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        .hero h2 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            margin-bottom: 22px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #ffc928;
+            color: #082b59;
+            padding: 12px 22px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #082b59;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px #00000012;
+        }
+
+        .card h3 {
+            color: #075b9b;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 28px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 22px;
+            background: #082b59;
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 25px;
+            }
+
+            .hero h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>GTMR BAC3</h1>
+        <p>Génie des Télécommunications et Maintenance des Réseaux</p>
+        <p>ENS — Burundi</p>
+    </header>
+
+    <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="#cours">Cours</a>
+        <a href="#informations">Informations</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section class="hero" id="accueil">
+        <h2>Bienvenue sur la plateforme GTMR BAC3</h2>
+        <p>Un espace pour apprendre, partager les cours et rester en contact.</p>
+        <a class="button" href="#cours">Consulter les cours</a>
+        <a class="button" href="#informations">Voir les informations</a>
+    </section>
+
+    <main>
+        <h2 class="section-title">Nos espaces</h2>
+
+        <div class="cards" id="cours">
+            <article class="card">
+                <h3>Cours et syllabus</h3>
+                <p>Un espace prévu pour retrouver les cours, les syllabus et les documents PDF.</p>
+            </article>
+
+            <article class="card">
+                <h3>Espace étudiants</h3>
+                <p>Un espace prévu pour l'inscription et la connexion des étudiants.</p>
+            </article>
+
+            <article class="card">
+                <h3>Galerie photos</h3>
+                <p>Un espace pour partager les photos de la classe et les activités.</p>
+            </article>
+
+            <article class="card">
+                <h3>Messagerie</h3>
+                <p>Un espace prévu pour échanger des messages entre étudiants.</p>
+            </article>
+        </div>
+
+        <section class="info" id="informations">
+            <h2>Informations importantes</h2>
+            <p>Les annonces et les nouvelles seront publiées ici par l'administrateur.</p>
+        </section>
+
+        <section class="info" id="contact">
+            <h2>Administration</h2>
+            <p>Administrateur du projet : Eliphase Niyomwungere.</p>
+            <p>Plateforme destinée aux étudiants GTMR BAC3.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 GTMR BAC3 — ENS Burundi</p>
+        <p>Développé pour faciliter l'apprentissage et la communication.</p>
+    </footer>
+
+</body>
+</html>
+```
